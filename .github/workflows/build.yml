@@ -74,5 +74,24 @@ jobs:
           path: ./build/plugin_luajit/**/*
           name: plugin_luajit  
     
+  windows:
+    runs-on: windows-2016
 
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Insatll MSVC
+        uses: microsoft/setup-msbuild@v1.0.2
+ 
+      - uses: ilammy/msvc-dev-cmd@v1
+      - name: Build Luajit
+        run: |
+          cd build
+          .\make_win64_luajit.bat
+
+      - name: UploadJit
+        uses: actions/upload-artifact@v2
+        with:
+          path: ./build/plugin_luajit/**/*
+          name: plugin_luajit
    
