@@ -1687,15 +1687,19 @@ LUA_API void luaopen_pb(lua_State *L) {
 	luaL_newmetatable(L, IOSTRING_META);
     lua_pushvalue(L, -1);
     lua_setfield(L, -2, "__index");
-#if LUA_VERSION_NUM == 503
-    luaL_newlib(L, _c_iostring_m);
-    //luaL_newlib(L, _pb);
-	//lua_setglobal(L, "pb");
-	luaL_requiref(L,"pb",lua32open_pbLib,1); //crash 
-#else
+
+// #if LUA_VERSION_NUM == 503
+//     luaL_newlib(L, _c_iostring_m);
+//     //luaL_newlib(L, _pb);
+// 	//lua_setglobal(L, "pb");
+// 	luaL_requiref(L,"pb",lua32open_pbLib,1); //crash 
+// #else
+//     luaL_register(L, NULL, _c_iostring_m);
+//     luaL_register(L, "pb", _pb);
+// #endif
+    
     luaL_register(L, NULL, _c_iostring_m);
     luaL_register(L, "pb", _pb);
-#endif
 }
 
 
